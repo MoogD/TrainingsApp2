@@ -1,0 +1,9 @@
+ext {
+    ktlintVersion = '0.36.0'
+
+    daggerVersion = '2.24'
+    timberVersion = '4.7.1'
+
+    materialDesignVersion = '1.2.0-alpha06'
+    supportDesignVersion = '27.0.2'
+}
