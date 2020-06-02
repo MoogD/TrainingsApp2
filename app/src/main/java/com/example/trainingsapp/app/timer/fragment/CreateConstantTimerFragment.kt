@@ -12,7 +12,5 @@ class CreateConstantTimerFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.new_constant_pattern, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.new_constant_pattern, container, false)
 }
