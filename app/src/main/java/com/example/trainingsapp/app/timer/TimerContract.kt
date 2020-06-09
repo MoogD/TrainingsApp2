@@ -10,13 +10,14 @@ interface TimerContract {
         fun attachView(view: View)
         fun detachView()
         fun createConstantTimerPattern(
-            count: String,
-            stepMinutes: String,
-            stepSeconds: String,
-            breakMinutes: String,
-            breakSeconds: String
+            count: Int,
+            stepMinutes: Int,
+            stepSeconds: Int,
+            breakMinutes: Int,
+            breakSeconds: Int
         )
 
-        fun createIndividualTimerPattern(steps: List<Int>)
+        fun createIndividualTimerPattern(steps: List<TimerPattern.Timer>)
+        fun updateIndividualTimer(minutes: Int, seconds: Int): Int
     }
 }

@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/constantPatternExplanation"
@@ -14,128 +15,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <TextView
         android:id="@+id/stepsCountText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/step_count_text"
+        android:text="@string/step_count_text"
+        android:textSize="18sp"
         android:layout_margin="16dp"
-        app:layout_constraintStart_toStartOf="@id/constantPatternExplanation"
-        app:layout_constraintTop_toBottomOf="@+id/constantPatternExplanation">
+        app:layout_constraintBottom_toBottomOf="@+id/stepPicker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/stepPicker"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/stepsCountEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"/>
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.example.trainingsapp.app.timer.CustomNumberPicker
+        android:id="@+id/stepPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/timerLayout"
+        app:layout_constraintStart_toStartOf="@+id/timerLayout"
+        app:layout_constraintTop_toBottomOf="@id/constantPatternExplanation"
+        app:minValue="1"
+        app:maxValue="100"/>
 
     <TextView
         android:id="@+id/stepsDurationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:text="@string/step_time_text"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/timerLayout"
         app:layout_constraintStart_toStartOf="@id/stepsCountText"
-        app:layout_constraintTop_toBottomOf="@+id/stepsCountText" />
+        app:layout_constraintTop_toTopOf="@+id/timerLayout" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/stepsMinutes"
+    <LinearLayout
+        android:id="@+id/timerLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintStart_toEndOf="@+id/stepsDurationText"
-        app:layout_constraintTop_toBottomOf="@+id/stepsCountText">
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/stepsDurationText"
+        app:layout_constraintTop_toBottomOf="@id/stepsCountText">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:text="01" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/stepsSeperator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/stepsMinutes"
-        app:layout_constraintTop_toBottomOf="@+id/stepsCountText">
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:textColor="@color/cardview_dark_background"
-        android:text=":" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/stepsSeconds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/stepsSeperator"
-        app:layout_constraintTop_toBottomOf="@+id/stepsCountText">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:text="00" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <include layout="@layout/timer_layout" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/breakText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="@string/break_time_text"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/breakLayout"
         app:layout_constraintStart_toStartOf="@id/stepsDurationText"
-        app:layout_constraintTop_toBottomOf="@+id/stepsMinutes" />
+        app:layout_constraintTop_toTopOf="@+id/breakLayout" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/breaksMinutes"
+    <LinearLayout
+        android:id="@+id/breakLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        app:layout_constraintStart_toEndOf="@+id/breakText"
-        app:layout_constraintTop_toBottomOf="@+id/stepsMinutes">
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/stepsDurationText"
+        app:layout_constraintTop_toBottomOf="@id/timerLayout">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:text="00" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/breaksSeperator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/breaksMinutes"
-        app:layout_constraintTop_toBottomOf="@+id/stepsMinutes">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text=":"
-            android:textColor="@color/cardview_dark_background" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/breaksSeconds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@+id/breaksSeperator"
-        app:layout_constraintTop_toBottomOf="@+id/stepsMinutes">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="numberSigned"
-            android:text="00" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <include layout="@layout/timer_layout" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

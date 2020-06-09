@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/individualTimerItemCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/stepsDurationText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/stepsDurationText"
+        tools:text="0." />
+
+    <TextView
+        android:id="@+id/stepsDurationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/step_time_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/timerLayout"
+        app:layout_constraintStart_toEndOf="@+id/individualTimerItemCount"
+        app:layout_constraintTop_toTopOf="@+id/timerLayout" />
+
+    <LinearLayout
+        android:id="@+id/timerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/stepsDurationText">
+        <include layout="@layout/timer_layout"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

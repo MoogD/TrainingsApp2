@@ -17,11 +17,11 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/addTimerButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newTimerTabLayout">
+        app:layout_constraintTop_toBottomOf="@+id/newTimerTabLayout"/>
 
-    </androidx.viewpager2.widget.ViewPager2>
 
     <Button
         android:id="@+id/addTimerButton"

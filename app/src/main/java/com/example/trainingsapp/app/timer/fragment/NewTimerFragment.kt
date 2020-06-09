@@ -8,21 +8,26 @@ import android.view.ViewGroup
 import com.example.trainingsapp.R
 import com.example.trainingsapp.app.base.BaseFragment
 import com.example.trainingsapp.app.main.FragmentListener
-import com.example.trainingsapp.app.timer.*
+import com.example.trainingsapp.app.timer.CustomNumberPicker
+import com.example.trainingsapp.app.timer.TimerContract
+import com.example.trainingsapp.app.timer.TimerTabAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.new_constant_pattern.*
-import kotlinx.android.synthetic.main.new_timer_fragment.*
+import kotlinx.android.synthetic.main.new_constant_pattern.breakLayout
+import kotlinx.android.synthetic.main.new_constant_pattern.stepPicker
+import kotlinx.android.synthetic.main.new_constant_pattern.timerLayout
+import kotlinx.android.synthetic.main.new_timer_fragment.addTimerButton
+import kotlinx.android.synthetic.main.new_timer_fragment.cancelTimerButton
+import kotlinx.android.synthetic.main.new_timer_fragment.newTimerTabLayout
+import kotlinx.android.synthetic.main.new_timer_fragment.viewPager
 import timber.log.Timber
-import java.lang.ClassCastException
 import javax.inject.Inject
 
-class NewTimerFragment : BaseFragment(), TimerContract.View {
-
-    private lateinit var adapter: CreateTimerTabAdapter
+class NewTimerFragment : BaseFragment(), TimerContract.View, NewTimerListener {
 
     @Inject
     lateinit var presenter: TimerContract.Presenter
 
+    private var adapter: TimerTabAdapter? = null
     private var listener: FragmentListener? = null
 
     override fun onCreateView(
@@ -34,18 +39,18 @@ class NewTimerFragment : BaseFragment(), TimerContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = CreateTimerTabAdapter(this)
-        adapter.addFragment(
+        adapter = TimerTabAdapter(this)
+        adapter?.addFragment(
             CreateConstantTimerFragment(),
             getString(R.string.constant_pattern_tab_text)
         )
-        adapter.addFragment(
+        adapter?.addFragment(
             CreateIndividualTimerFragment(),
             getString(R.string.individual_pattern_tab_text)
         )
         viewPager.adapter = adapter
         TabLayoutMediator(newTimerTabLayout, viewPager) { tab, position ->
-            tab.text = adapter.getTitle(position)
+            tab.text = adapter?.getTitle(position)
         }.attach()
         cancelTimerButton.setOnClickListener(::cancelClicked)
         addTimerButton.setOnClickListener(::addTimerClicked)
@@ -61,22 +66,30 @@ class NewTimerFragment : BaseFragment(), TimerContract.View {
 
     private fun addTimerClicked(view: View) {
         Timber.i("$view clicked")
-        when (adapter.getTitle(viewPager.currentItem)) {
-            getString(R.string.constant_pattern_tab_text) -> {
+        var currentFrag = adapter?.getFragment(viewPager.currentItem)
+        when (currentFrag) {
+            is CreateConstantTimerFragment -> {
                 presenter.createConstantTimerPattern(
-                    stepsCountEditText.text.toString(),
-                    stepsMinutes.editText?.text.toString(),
-                    stepsSeconds.editText?.text.toString(),
-                    breaksMinutes.editText?.text.toString(),
-                    breaksSeconds.editText?.text.toString()
+                    stepPicker.value,
+                    timerLayout
+                        .findViewById<CustomNumberPicker>(R.id.numpickerMinutes).value,
+                    timerLayout
+                        .findViewById<CustomNumberPicker>(R.id.numpickerSeconds).value,
+                    breakLayout
+                        .findViewById<CustomNumberPicker>(R.id.numpickerMinutes).value,
+                    breakLayout
+                        .findViewById<CustomNumberPicker>(R.id.numpickerSeconds).value
                 )
             }
-            getString(R.string.individual_pattern_tab_text) -> {
+            is CreateIndividualTimerFragment -> {
+                val stepList = currentFrag.getTimerList()
+                presenter.createIndividualTimerPattern(stepList)
             }
             else -> {
             }
         }
     }
+
     private fun cancelClicked(view: View) {
         Timber.i("$view clicked")
         listener?.onTimerCreated()
@@ -85,6 +98,7 @@ class NewTimerFragment : BaseFragment(), TimerContract.View {
 
     override fun onDetach() {
         listener = null
+        adapter = null
         super.onDetach()
     }
 
@@ -102,6 +116,9 @@ class NewTimerFragment : BaseFragment(), TimerContract.View {
     override fun showError(msg: String) {
         Timber.d("Error creating a new Timer: $msg")
     }
+
+    override fun updateIndividualTimer(minutes: Int, seconds: Int): Int =
+        presenter.updateIndividualTimer(minutes, seconds)
 
     companion object {
         @JvmStatic

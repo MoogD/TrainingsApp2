@@ -8,7 +8,7 @@
     <string name="constant_pattern_explanation">Create a timer with constant step- and breakdurations.</string>
     <string name="individual_pattern_explanation">Create a timer with different durations.</string>
 
-    <string name="step_count_text">Amount of steps</string>
+    <string name="step_count_text">Amount of steps:</string>
     <string name="step_time_text">Step duration:</string>
     <string name="break_time_text">Break duration:</string>
 
