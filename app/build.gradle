@@ -47,6 +47,10 @@ dependencies {
 
     // Test
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+
+    // Instrumented test
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
@@ -63,13 +67,3 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
 }
-
-//android.testOptions {
-//
-//    unitTests.all {
-//
-//        jacoco {
-//            includeNoLocationClasses = true
-//        }
-//    }
-//}

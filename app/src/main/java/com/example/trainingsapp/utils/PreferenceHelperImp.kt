@@ -1,11 +1,13 @@
-package com.example.trainingsapp.Utils
+package com.example.trainingsapp.utils
 
 import android.content.Context
 import com.example.trainingsapp.app.timer.TimerPattern
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 import javax.inject.Inject
 
-class PreferenceHelperImp @Inject constructor(private val context: Context) : PreferenceHelper {
+class PreferenceHelperImp @Inject constructor(context: Context) : PreferenceHelper {
 
     private val timerPref =
         context.getSharedPreferences(TIMER_PREFERENCES_KEY, Context.MODE_PRIVATE)
@@ -13,16 +15,18 @@ class PreferenceHelperImp @Inject constructor(private val context: Context) : Pr
     override fun saveTimerPattern(timerPattern: TimerPattern) {
         val timerList = getTimerPatternList()
             .toMutableList()
-            .add(timerPattern)
+        timerList.add(timerPattern)
         val timerListString = Gson()
             .toJson(timerList)
         timerPref.edit()
             .putString(TIMER_LIST_KEY, timerListString)
+            .apply()
     }
 
     override fun getTimerPatternList(): List<TimerPattern> {
         val listString = timerPref.getString(TIMER_LIST_KEY, null) ?: return emptyList()
-        return Gson().fromJson(listString, listOf<TimerPattern>().javaClass)
+        val type: Type = object : TypeToken<List<TimerPattern?>?>() {}.type
+        return Gson().fromJson<List<TimerPattern>>(listString, type).toList()
     }
 
     companion object {

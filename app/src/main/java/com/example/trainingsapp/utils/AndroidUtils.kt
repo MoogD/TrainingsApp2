@@ -1,4 +1,4 @@
-package com.example.trainingsapp.Utils
+package com.example.trainingsapp.utils
 
 import timber.log.Timber
 

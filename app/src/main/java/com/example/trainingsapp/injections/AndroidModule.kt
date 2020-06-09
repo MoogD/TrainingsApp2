@@ -1,8 +1,8 @@
 package com.example.trainingsapp.injections
 
 import android.content.Context
-import com.example.trainingsapp.Utils.PreferenceHelper
-import com.example.trainingsapp.Utils.PreferenceHelperImp
+import com.example.trainingsapp.utils.PreferenceHelper
+import com.example.trainingsapp.utils.PreferenceHelperImp
 import com.example.trainingsapp.injections.annotation.ApplicationContext
 import dagger.Module
 import dagger.Provides

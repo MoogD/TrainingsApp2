@@ -1,4 +1,4 @@
-package com.example.trainingsapp.Utils
+package com.example.trainingsapp.utils
 
 import com.example.trainingsapp.app.timer.TimerPattern
 

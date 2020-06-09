@@ -1,26 +1,36 @@
 package com.example.trainingsapp.app.main
 
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import com.example.trainingsapp.R
 import com.example.trainingsapp.app.base.BaseActivity
 import com.example.trainingsapp.app.timer.fragment.NewTimerFragment
 import com.example.trainingsapp.injections.annotation.ApplicationContext
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.container
+import kotlinx.android.synthetic.main.activity_main.createTimerButton
+import kotlinx.android.synthetic.main.activity_main.mainViewContainer
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), FragmentListener {
+class MainActivity : BaseActivity(), FragmentListener, MainContract.View {
 
     @field :[Inject ApplicationContext]
     internal lateinit var context: Context
+
+    @Inject
+    internal lateinit var presenter: MainContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         createTimerButton.setOnClickListener(::createNewTimer)
+        presenter.attachView(this)
+    }
+
+    override fun onDestroy() {
+        presenter.detachView()
+        super.onDestroy()
     }
 
     private fun createNewTimer(view: View) {
