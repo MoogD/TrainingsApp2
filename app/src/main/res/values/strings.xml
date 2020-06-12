@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">TrainingsApp</string>
-    <string name="constant_pattern_button_text">Constant pattern</string>
-    <string name="individual_pattern_button_text">Individual pattern</string>
+
+    <string name="constant_pattern_tab_text">Constant pattern</string>
+    <string name="individual_pattern_tab_text">Individual pattern</string>
+    <string name="create_new_timer_button_text">Create new timer</string>
+    <string name="start_training_button_text">Start training</string>
+    <string name="constant_pattern_explanation">Create a timer with constant step- and breakdurations.</string>
+    <string name="individual_pattern_explanation">Create a timer with different durations.</string>
+
+    <string name="step_count_text">Amount of steps:</string>
+    <string name="step_time_text">Step duration:</string>
+    <string name="break_time_text">Break duration:</string>
+
+    <string name="add_new_timer_button_text">Add timer</string>
+    <string name="cancel_new_timer_button_text">Cancel</string>
 </resources>

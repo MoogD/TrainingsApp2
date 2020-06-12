@@ -28,24 +28,41 @@ android {
         }
     }
 
+    testOptions {
+        execution "ANDROIDX_TEST_ORCHESTRATOR"
+
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation "com.android.support:design:$supportDesignVersion"
     implementation "com.google.android.material:material:$materialDesignVersion"
+    implementation "com.android.support:recyclerview-v7:$recyclerViewVersion"
 
     // Timber
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
+    implementation "com.google.code.gson:gson:$gsonVersion"
+
     // Test
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+
+    // Instrumented test
+    androidTestImplementation "androidx.test.ext:junit:$junitExtVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoCoreVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoContribVersion"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
+    androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:$uiAutomatorVersion"
+    androidTestUtil "androidx.test:orchestrator:$androidxTestRunnerVersion"
 
     // dagger
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
@@ -60,13 +77,3 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
 }
-
-//android.testOptions {
-//
-//    unitTests.all {
-//
-//        jacoco {
-//            includeNoLocationClasses = true
-//        }
-//    }
-//}

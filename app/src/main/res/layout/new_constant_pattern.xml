@@ -1,12 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
+        android:id="@+id/constantPatternExplanation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Tab 1"
-        android:textSize="36sp" />
+        android:layout_margin="16dp"
+        android:text="@string/constant_pattern_explanation"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/stepsCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/step_count_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/stepPicker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/stepPicker" />
+
+    <com.example.trainingsapp.app.timer.CustomNumberPicker
+        android:id="@+id/stepPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/stepTimerLayout"
+        app:layout_constraintStart_toStartOf="@+id/stepTimerLayout"
+        app:layout_constraintTop_toBottomOf="@id/constantPatternExplanation"
+        app:maxValue="100"
+        app:minValue="1" />
+
+    <TextView
+        android:id="@+id/stepsDurationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/step_time_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/stepTimerLayout"
+        app:layout_constraintStart_toStartOf="@id/stepsCountText"
+        app:layout_constraintTop_toTopOf="@+id/stepTimerLayout" />
+
+    <LinearLayout
+        android:id="@+id/stepTimerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/stepsDurationText"
+        app:layout_constraintTop_toBottomOf="@id/stepsCountText">
+
+        <include layout="@layout/timer_layout" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/breakDurationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/break_time_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/breakTimerLayout"
+        app:layout_constraintStart_toStartOf="@id/stepsDurationText"
+        app:layout_constraintTop_toTopOf="@+id/breakTimerLayout" />
+
+    <LinearLayout
+        android:id="@+id/breakTimerLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/stepsDurationText"
+        app:layout_constraintTop_toBottomOf="@id/stepTimerLayout">
+
+        <include layout="@layout/timer_layout" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
