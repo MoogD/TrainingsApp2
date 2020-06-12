@@ -33,9 +33,9 @@ class IndividualTimerListAdapter : RecyclerView.Adapter<IndividualTimerListAdapt
 
     class ViewHolder(timerViewHolder: View) : RecyclerView.ViewHolder(timerViewHolder) {
         val itemCount: TextView = itemView.findViewById(R.id.individualTimerItemCount)
-        val stepsMinutes: CustomNumberPicker = itemView.findViewById<LinearLayout>(R.id.timerLayout)
+        val stepsMinutes: CustomNumberPicker = itemView.findViewById<LinearLayout>(R.id.stepTimerLayout)
             .findViewById(R.id.numpickerMinutes)
-        val stepsSeconds: CustomNumberPicker = itemView.findViewById<LinearLayout>(R.id.timerLayout)
+        val stepsSeconds: CustomNumberPicker = itemView.findViewById<LinearLayout>(R.id.stepTimerLayout)
             .findViewById(R.id.numpickerSeconds)
     }
 }

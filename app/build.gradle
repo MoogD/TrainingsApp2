@@ -28,6 +28,10 @@ android {
         }
     }
 
+    testOptions {
+        execution "ANDROIDX_TEST_ORCHESTRATOR"
+
+    }
 }
 
 dependencies {
@@ -46,13 +50,19 @@ dependencies {
     implementation "com.google.code.gson:gson:$gsonVersion"
 
     // Test
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
 
     // Instrumented test
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation "androidx.test.ext:junit:$junitExtVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoCoreVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoCoreVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoContribVersion"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoCoreVersion"
+    androidTestImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:$uiAutomatorVersion"
+    androidTestUtil "androidx.test:orchestrator:$androidxTestRunnerVersion"
 
     // dagger
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"

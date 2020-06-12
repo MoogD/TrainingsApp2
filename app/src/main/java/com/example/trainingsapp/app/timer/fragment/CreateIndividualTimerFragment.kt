@@ -53,7 +53,7 @@ class CreateIndividualTimerFragment : Fragment() {
         Timber.d("$view clicked!")
         timerListAdapter.timerList.forEach {
             val pickerLayout = recyclerView[timerListAdapter.timerList.indexOf(it)]
-                .findViewById<LinearLayout>(R.id.timerLayout)
+                .findViewById<LinearLayout>(R.id.stepTimerLayout)
             it.duration = listener?.updateIndividualTimer(
                 pickerLayout.findViewById<CustomNumberPicker>(R.id.numpickerMinutes).value,
                 pickerLayout.findViewById<CustomNumberPicker>(R.id.numpickerSeconds).value

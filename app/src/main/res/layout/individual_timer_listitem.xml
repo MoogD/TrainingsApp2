@@ -23,12 +23,12 @@
         android:layout_marginStart="8dp"
         android:text="@string/step_time_text"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@id/timerLayout"
+        app:layout_constraintBottom_toBottomOf="@id/stepTimerLayout"
         app:layout_constraintStart_toEndOf="@+id/individualTimerItemCount"
-        app:layout_constraintTop_toTopOf="@+id/timerLayout" />
+        app:layout_constraintTop_toTopOf="@+id/stepTimerLayout" />
 
     <LinearLayout
-        android:id="@+id/timerLayout"
+        android:id="@+id/stepTimerLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

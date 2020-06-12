@@ -12,9 +12,9 @@ import com.example.trainingsapp.app.timer.CustomNumberPicker
 import com.example.trainingsapp.app.timer.TimerContract
 import com.example.trainingsapp.app.timer.TimerTabAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.new_constant_pattern.breakLayout
+import kotlinx.android.synthetic.main.new_constant_pattern.breakTimerLayout
 import kotlinx.android.synthetic.main.new_constant_pattern.stepPicker
-import kotlinx.android.synthetic.main.new_constant_pattern.timerLayout
+import kotlinx.android.synthetic.main.new_constant_pattern.stepTimerLayout
 import kotlinx.android.synthetic.main.new_timer_fragment.addTimerButton
 import kotlinx.android.synthetic.main.new_timer_fragment.cancelTimerButton
 import kotlinx.android.synthetic.main.new_timer_fragment.newTimerTabLayout
@@ -66,18 +66,17 @@ class NewTimerFragment : BaseFragment(), TimerContract.View, NewTimerListener {
 
     private fun addTimerClicked(view: View) {
         Timber.i("$view clicked")
-        var currentFrag = adapter?.getFragment(viewPager.currentItem)
-        when (currentFrag) {
+        when (val currentFrag = adapter?.getFragment(viewPager.currentItem)) {
             is CreateConstantTimerFragment -> {
                 presenter.createConstantTimerPattern(
                     stepPicker.value,
-                    timerLayout
+                    stepTimerLayout
                         .findViewById<CustomNumberPicker>(R.id.numpickerMinutes).value,
-                    timerLayout
+                    stepTimerLayout
                         .findViewById<CustomNumberPicker>(R.id.numpickerSeconds).value,
-                    breakLayout
+                    breakTimerLayout
                         .findViewById<CustomNumberPicker>(R.id.numpickerMinutes).value,
-                    breakLayout
+                    breakTimerLayout
                         .findViewById<CustomNumberPicker>(R.id.numpickerSeconds).value
                 )
             }

@@ -6,6 +6,14 @@ ext {
     supportDesignVersion = '27.0.2'
     gsonVersion = '2.8.6'
     recyclerViewVersion = '28.0.0'
+
+    // Test dependencies
+    junitVersion = '4.12'
+    junitExtVersion = '1.1.1'
     mockitoCoreVersion = '3.3.3'
     mockitoKotlinVersion = '2.1.0'
+    espressoCoreVersion = '3.2.0'
+    espressoContribVersion = '3.1.0-alpha3'
+    uiAutomatorVersion = '2.2.0'
+    androidxTestRunnerVersion = '1.2.0'
 }
