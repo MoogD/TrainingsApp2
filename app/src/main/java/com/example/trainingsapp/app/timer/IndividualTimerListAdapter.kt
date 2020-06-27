@@ -7,10 +7,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trainingsapp.R
+import com.example.trainingsapp.app.training.Exercise
 
 class IndividualTimerListAdapter : RecyclerView.Adapter<IndividualTimerListAdapter.ViewHolder>() {
 
-    var timerList: MutableList<TimerPattern.Timer> = mutableListOf()
+    var timerList: MutableList<Exercise.Timer> = mutableListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -27,8 +28,8 @@ class IndividualTimerListAdapter : RecyclerView.Adapter<IndividualTimerListAdapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemCount.text = (position + 1).toString()
-        holder.stepsMinutes.value = timerList[position].duration / 60
-        holder.stepsSeconds.value = timerList[position].duration % 60
+        holder.stepsMinutes.value = timerList[position].amount / 60
+        holder.stepsSeconds.value = timerList[position].amount % 60
     }
 
     class ViewHolder(timerViewHolder: View) : RecyclerView.ViewHolder(timerViewHolder) {

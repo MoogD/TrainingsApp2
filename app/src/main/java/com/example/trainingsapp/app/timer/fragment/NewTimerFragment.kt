@@ -15,6 +15,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.new_constant_pattern.breakTimerLayout
 import kotlinx.android.synthetic.main.new_constant_pattern.stepPicker
 import kotlinx.android.synthetic.main.new_constant_pattern.stepTimerLayout
+import kotlinx.android.synthetic.main.new_constant_pattern.timerNameInputEditText
 import kotlinx.android.synthetic.main.new_timer_fragment.addTimerButton
 import kotlinx.android.synthetic.main.new_timer_fragment.cancelTimerButton
 import kotlinx.android.synthetic.main.new_timer_fragment.newTimerTabLayout
@@ -66,25 +67,33 @@ class NewTimerFragment : BaseFragment(), TimerContract.View, NewTimerListener {
 
     private fun addTimerClicked(view: View) {
         Timber.i("$view clicked")
-        when (val currentFrag = adapter?.getFragment(viewPager.currentItem)) {
-            is CreateConstantTimerFragment -> {
-                presenter.createConstantTimerPattern(
-                    stepPicker.value,
-                    stepTimerLayout
-                        .findViewById<CustomNumberPicker>(R.id.numpickerMinutes).value,
-                    stepTimerLayout
-                        .findViewById<CustomNumberPicker>(R.id.numpickerSeconds).value,
-                    breakTimerLayout
-                        .findViewById<CustomNumberPicker>(R.id.numpickerMinutes).value,
-                    breakTimerLayout
-                        .findViewById<CustomNumberPicker>(R.id.numpickerSeconds).value
-                )
-            }
-            is CreateIndividualTimerFragment -> {
-                val stepList = currentFrag.getTimerList()
-                presenter.createIndividualTimerPattern(stepList)
-            }
-            else -> {
+        if (timerNameInputEditText.text.isNullOrBlank()) {
+            showError("Please add a name!")
+        } else {
+            when (val currentFrag = adapter?.getFragment(viewPager.currentItem)) {
+                is CreateConstantTimerFragment -> {
+                    presenter.createConstantTimerPattern(
+                        timerNameInputEditText.text.toString(),
+                        stepPicker.value,
+                        stepTimerLayout
+                            .findViewById<CustomNumberPicker>(R.id.numpickerMinutes).value,
+                        stepTimerLayout
+                            .findViewById<CustomNumberPicker>(R.id.numpickerSeconds).value,
+                        breakTimerLayout
+                            .findViewById<CustomNumberPicker>(R.id.numpickerMinutes).value,
+                        breakTimerLayout
+                            .findViewById<CustomNumberPicker>(R.id.numpickerSeconds).value
+                    )
+                }
+                is CreateIndividualTimerFragment -> {
+                    val stepList = currentFrag.getTimerList()
+                    presenter.createIndividualTimerPattern(
+                        timerNameInputEditText.text.toString(),
+                        stepList
+                    )
+                }
+                else -> {
+                }
             }
         }
     }

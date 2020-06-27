@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trainingsapp.R
 import com.example.trainingsapp.app.timer.CustomNumberPicker
 import com.example.trainingsapp.app.timer.IndividualTimerListAdapter
-import com.example.trainingsapp.app.timer.TimerPattern
+import com.example.trainingsapp.app.training.Exercise
 import kotlinx.android.synthetic.main.new_individual_pattern.addTimerStepFAB
 import timber.log.Timber
 
@@ -54,14 +54,18 @@ class CreateIndividualTimerFragment : Fragment() {
         timerListAdapter.timerList.forEach {
             val pickerLayout = recyclerView[timerListAdapter.timerList.indexOf(it)]
                 .findViewById<LinearLayout>(R.id.stepTimerLayout)
-            it.duration = listener?.updateIndividualTimer(
+            it.amount = listener?.updateIndividualTimer(
                 pickerLayout.findViewById<CustomNumberPicker>(R.id.numpickerMinutes).value,
                 pickerLayout.findViewById<CustomNumberPicker>(R.id.numpickerSeconds).value
             ) ?: 0
         }
-        timerListAdapter.timerList.add(TimerPattern.Timer(0))
+        timerListAdapter.timerList.add(
+            Exercise.Timer(
+                0
+            )
+        )
         timerListAdapter.notifyDataSetChanged()
     }
 
-    fun getTimerList(): List<TimerPattern.Timer> = timerListAdapter.timerList
+    fun getTimerList(): List<Exercise.Timer> = timerListAdapter.timerList
 }

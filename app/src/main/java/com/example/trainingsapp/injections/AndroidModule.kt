@@ -1,6 +1,7 @@
 package com.example.trainingsapp.injections
 
 import android.content.Context
+import com.example.trainingsapp.utils.TrainingDeserializer
 import com.example.trainingsapp.utils.PreferenceHelper
 import com.example.trainingsapp.utils.PreferenceHelperImp
 import com.example.trainingsapp.injections.annotation.ApplicationContext
@@ -24,5 +25,7 @@ class AndroidModule(val context: Context) {
     @Provides
     fun providePreferenceHelper(
         @ApplicationContext context: Context
-    ): PreferenceHelper = PreferenceHelperImp(context)
+    ): PreferenceHelper = PreferenceHelperImp(context,
+        TrainingDeserializer
+    )
 }

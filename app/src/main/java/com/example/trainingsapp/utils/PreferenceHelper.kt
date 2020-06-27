@@ -1,8 +1,8 @@
 package com.example.trainingsapp.utils
 
-import com.example.trainingsapp.app.timer.TimerPattern
+import com.example.trainingsapp.app.training.Training
 
 interface PreferenceHelper {
-    fun saveTimerPattern(timerPattern: TimerPattern)
-    fun getTimerPatternList(): List<TimerPattern>
+    fun saveTraining(training: Training)
+    fun getTrainingList(): List<Training>
 }
