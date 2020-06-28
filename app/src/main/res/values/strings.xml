@@ -15,4 +15,6 @@
 
     <string name="add_new_timer_button_text">Add timer</string>
     <string name="cancel_new_timer_button_text">Cancel</string>
+
+    <string name="training_selection_explanation">You can choose on of the following Trainings</string>
 </resources>
