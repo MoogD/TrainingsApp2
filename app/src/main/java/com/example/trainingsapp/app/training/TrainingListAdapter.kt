@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trainingsapp.R
+import com.example.trainingsapp.app.training.interfaces.Training
+import com.example.trainingsapp.app.training.interfaces.TrainingItemClickListener
 
 class TrainingListAdapter : RecyclerView.Adapter<TrainingListAdapter.ViewHolder>() {
 

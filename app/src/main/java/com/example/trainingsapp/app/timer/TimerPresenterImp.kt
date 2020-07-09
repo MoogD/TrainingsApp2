@@ -1,7 +1,7 @@
 package com.example.trainingsapp.app.timer
 
-import com.example.trainingsapp.app.training.Exercise
-import com.example.trainingsapp.app.training.Training
+import com.example.trainingsapp.app.training.interfaces.Exercise
+import com.example.trainingsapp.app.training.interfaces.Training
 import com.example.trainingsapp.utils.PreferenceHelper
 import javax.inject.Inject
 
@@ -26,7 +26,8 @@ class TimerPresenterImp @Inject constructor(
         breakMinutes: Int,
         breakSeconds: Int
     ) {
-        val timerPattern = Training(name)
+        val timerPattern =
+            Training(name)
         if ((stepMinutes > 0 || stepSeconds > 0) && count > 0) {
             for (i in 0 until count) {
                 timerPattern.addExercise(
@@ -48,7 +49,9 @@ class TimerPresenterImp @Inject constructor(
     }
 
     override fun createIndividualTimerPattern(name: String, steps: List<Exercise.Timer>) {
-        val pattern = Training(name).apply {
+        val pattern = Training(
+            name
+        ).apply {
             steps.forEach {
                 if (it.amount > 0) {
                     this.addExercise(it)

@@ -1,7 +1,7 @@
 package com.example.trainingsapp.app.timer
 
-import com.example.trainingsapp.app.training.Exercise
-import com.example.trainingsapp.app.training.Training
+import com.example.trainingsapp.app.training.interfaces.Exercise
+import com.example.trainingsapp.app.training.interfaces.Training
 import com.example.trainingsapp.utils.PreferenceHelper
 import com.nhaarman.mockitokotlin2.any
 import org.junit.Test

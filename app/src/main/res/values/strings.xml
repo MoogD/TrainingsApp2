@@ -17,4 +17,9 @@
     <string name="cancel_new_timer_button_text">Cancel</string>
 
     <string name="training_selection_explanation">You can choose on of the following Trainings</string>
+    <string name="back_button_text">Back</string>
+    <string name="exercise_item_name_text">%d. %d</string>
+    <string name="pause_button_text">Pause</string>
+    <string name="next_button_text">Next</string>
+    <string name="timer_divider">:</string>
 </resources>

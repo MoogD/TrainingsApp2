@@ -1,4 +1,4 @@
-package com.example.trainingsapp.app.training
+package com.example.trainingsapp.app.training.interfaces
 
 interface Exercise {
     var kind: String
@@ -11,7 +11,8 @@ interface Exercise {
         override var name: String? = null,
         override var explanation: String? = null
     ) : Exercise {
-        override var kind = TIMER_KIND
+        override var kind =
+            TIMER_KIND
     }
 
     companion object {

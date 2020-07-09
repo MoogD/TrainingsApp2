@@ -1,7 +1,7 @@
 package com.example.trainingsapp.utils
 
 import android.content.Context
-import com.example.trainingsapp.app.training.Training
+import com.example.trainingsapp.app.training.interfaces.Training
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken

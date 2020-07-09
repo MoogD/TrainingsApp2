@@ -1,6 +1,6 @@
 package com.example.trainingsapp.app.timer
 
-import com.example.trainingsapp.app.training.Exercise
+import com.example.trainingsapp.app.training.interfaces.Exercise
 
 interface TimerContract {
     interface View {

@@ -7,20 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.trainingsapp.R
-import com.example.trainingsapp.app.training.Training
-import com.example.trainingsapp.app.training.TrainingItemClickListener
 import com.example.trainingsapp.app.training.TrainingListAdapter
-import com.example.trainingsapp.app.training.TrainingListener
+import com.example.trainingsapp.app.training.interfaces.Training
+import com.example.trainingsapp.app.training.interfaces.TrainingItemClickListener
+import com.example.trainingsapp.app.training.interfaces.TrainingListener
+import kotlinx.android.synthetic.main.training_selection_fragment_layout.trainingsOverviewRecyclerview
 import timber.log.Timber
 
 class TrainingSelectionFragment(
     private val trainingList: List<Training>
-) : Fragment(), TrainingItemClickListener {
+) : Fragment(),
+    TrainingItemClickListener {
 
     private var listener: TrainingListener? = null
-    private lateinit var recyclerView: RecyclerView
     private var trainingListAdapter = TrainingListAdapter()
 
     override fun onAttach(context: Context) {
@@ -43,9 +43,8 @@ class TrainingSelectionFragment(
         super.onViewCreated(view, savedInstanceState)
         trainingListAdapter.setList(trainingList)
         trainingListAdapter.setListener(this)
-        recyclerView = view.findViewById(R.id.trainingsOverviewRecyclerview)
-        recyclerView.adapter = trainingListAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this.context)
+        trainingsOverviewRecyclerview.adapter = trainingListAdapter
+        trainingsOverviewRecyclerview.layoutManager = LinearLayoutManager(this.context)
     }
 
     override fun onItemClicked(training: Training) {

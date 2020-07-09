@@ -1,4 +1,4 @@
-package com.example.trainingsapp.app.training
+package com.example.trainingsapp.app.training.interfaces
 
 interface TrainingItemClickListener {
 

@@ -7,7 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trainingsapp.R
-import com.example.trainingsapp.app.training.Exercise
+import com.example.trainingsapp.app.training.interfaces.Exercise
 
 class IndividualTimerListAdapter : RecyclerView.Adapter<IndividualTimerListAdapter.ViewHolder>() {
 

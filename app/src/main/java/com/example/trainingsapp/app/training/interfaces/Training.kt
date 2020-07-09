@@ -1,7 +1,7 @@
-package com.example.trainingsapp.app.training
+package com.example.trainingsapp.app.training.interfaces
 
 class Training(val name: String?) {
-    private val exercises = mutableListOf<Exercise>()
+    val exercises = mutableListOf<Exercise>()
 
     fun isEmpty(): Boolean = exercises.isEmpty()
 

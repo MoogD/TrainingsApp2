@@ -1,14 +1,14 @@
 package com.example.trainingsapp.utils
 
-import com.example.trainingsapp.app.training.Exercise
-import com.example.trainingsapp.app.training.Exercise.Companion.EXERCISE_AMOUNT_VARIABLE_NAME
-import com.example.trainingsapp.app.training.Exercise.Companion.EXERCISE_EXPLANATION_VARIABLE_NAME
-import com.example.trainingsapp.app.training.Exercise.Companion.EXERCISE_KIND_VARIABLE_NAME
-import com.example.trainingsapp.app.training.Exercise.Companion.EXERCISE_NAME_VARIABLE_NAME
-import com.example.trainingsapp.app.training.Exercise.Companion.TIMER_KIND
-import com.example.trainingsapp.app.training.Training
-import com.example.trainingsapp.app.training.Training.Companion.TRAINING_EXERCISELIST_VARIABLE_NAME
-import com.example.trainingsapp.app.training.Training.Companion.TRAINING_NAME_VARIABLE_NAME
+import com.example.trainingsapp.app.training.interfaces.Exercise
+import com.example.trainingsapp.app.training.interfaces.Exercise.Companion.EXERCISE_AMOUNT_VARIABLE_NAME
+import com.example.trainingsapp.app.training.interfaces.Exercise.Companion.EXERCISE_EXPLANATION_VARIABLE_NAME
+import com.example.trainingsapp.app.training.interfaces.Exercise.Companion.EXERCISE_KIND_VARIABLE_NAME
+import com.example.trainingsapp.app.training.interfaces.Exercise.Companion.EXERCISE_NAME_VARIABLE_NAME
+import com.example.trainingsapp.app.training.interfaces.Exercise.Companion.TIMER_KIND
+import com.example.trainingsapp.app.training.interfaces.Training
+import com.example.trainingsapp.app.training.interfaces.Training.Companion.TRAINING_EXERCISELIST_VARIABLE_NAME
+import com.example.trainingsapp.app.training.interfaces.Training.Companion.TRAINING_NAME_VARIABLE_NAME
 import com.example.trainingsapp.utils.exceptions.UnknownExerciseTypeException
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
