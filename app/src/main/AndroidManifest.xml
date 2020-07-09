@@ -18,6 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".app.training.TrainingActivity" />
+
+        <service android:name=".app.training.TrainingService" />
     </application>
 
 </manifest>
