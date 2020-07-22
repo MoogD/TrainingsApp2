@@ -9,18 +9,20 @@ import androidx.fragment.app.Fragment
 import com.example.trainingsapp.R
 import com.example.trainingsapp.app.training.ExerciseListAdapter
 import com.example.trainingsapp.app.training.interfaces.Exercise
+import com.example.trainingsapp.app.training.interfaces.Training
 import com.example.trainingsapp.app.training.interfaces.TrainingListener
-import com.example.trainingsapp.app.training.interfaces.TrainingUpdateListener
 import kotlinx.android.synthetic.main.training_active_fragment_layout.amountLayout
 import kotlinx.android.synthetic.main.training_active_fragment_layout.amountTextView
 import kotlinx.android.synthetic.main.training_active_fragment_layout.currentExerciseName
 import kotlinx.android.synthetic.main.training_active_fragment_layout.exercisesRecyclerview
+import kotlinx.android.synthetic.main.training_active_fragment_layout.nextButton
+import kotlinx.android.synthetic.main.training_active_fragment_layout.pauseButton
 import kotlinx.android.synthetic.main.training_active_fragment_layout.timerLayout
 import kotlinx.android.synthetic.main.training_active_fragment_layout.timerMinutesTextView
 import kotlinx.android.synthetic.main.training_active_fragment_layout.timerSecondsTextView
 import timber.log.Timber
 
-class TrainingActiveFragment : Fragment(), TrainingUpdateListener {
+class TrainingActiveFragment(private val training: Training) : Fragment() {
     private var exerciseListAdapter = ExerciseListAdapter()
     private var listener: TrainingListener? = null
 
@@ -41,30 +43,58 @@ class TrainingActiveFragment : Fragment(), TrainingUpdateListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        exerciseListAdapter.setExercises(training.exercises)
         exercisesRecyclerview.adapter = exerciseListAdapter
         listener?.onActiveTrainingPrepared()
+        pauseButton.setOnClickListener(::onPausePressed)
+        nextButton.setOnClickListener(::onNextClicked)
     }
 
-    override fun updateTimer(remaining: Int) {
+    fun updateTimer(remaining: Int) {
         timerMinutesTextView.text = (remaining / 60).toString()
         timerSecondsTextView.text = (remaining % 60).toString()
     }
 
-    override fun nextExercise(exercise: Exercise, remainingExercises: List<Exercise>) {
-        currentExerciseName.text = exercise.name
-        when (exercise) {
-            is Exercise.Timer -> {
-                amountLayout.visibility = View.GONE
-                timerLayout.visibility = View.VISIBLE
-                timerMinutesTextView.text = (exercise.amount / 60).toString()
-                timerSecondsTextView.text = (exercise.amount % 60).toString()
-            }
-            else -> {
-                timerLayout.visibility = View.GONE
-                amountLayout.visibility = View.VISIBLE
-                amountTextView.text = exercise.amount.toString()
-            }
+    fun nextTimer(exercise: Exercise.Timer, position: Int) {
+        currentExerciseName.apply {
+            this.visibility = View.VISIBLE
+            this.text = exercise.name
         }
-        exerciseListAdapter.setExercises(remainingExercises)
+
+        amountLayout.visibility = View.GONE
+        timerLayout.visibility = View.VISIBLE
+        timerMinutesTextView.text = (exercise.amount / 60).toString()
+        timerSecondsTextView.text = (exercise.amount % 60).toString()
+
+        exercisesRecyclerview.scrollToPosition(position)
+    }
+
+    fun nextExercise(exercise: Exercise, position: Int) {
+        currentExerciseName.apply {
+            this.visibility = View.VISIBLE
+            this.text = exercise.name
+        }
+
+        timerLayout.visibility = View.GONE
+        amountLayout.visibility = View.VISIBLE
+        amountTextView.text = exercise.amount.toString()
+
+        exercisesRecyclerview.scrollToPosition(position)
+    }
+    fun pauseTraining() {
+        pauseButton.text = getString(R.string.resume_button_text)
+    }
+
+    fun resumeTraining() {
+        pauseButton.text = getString(R.string.pause_button_text)
+    }
+
+    private fun onNextClicked(view: View) {
+        Timber.d("$view pressed!")
+        listener?.nextExercise()
+    }
+
+    private fun onPausePressed(view: View) {
+        listener?.pauseTraining()
     }
 }

@@ -6,19 +6,14 @@ import android.os.Binder
 import android.os.CountDownTimer
 import android.os.IBinder
 import com.example.trainingsapp.app.training.interfaces.Exercise
-import com.example.trainingsapp.app.training.interfaces.Training
 import com.example.trainingsapp.app.training.interfaces.TrainingUpdateListener
 
-class TrainingService() : Service() {
+class TrainingService : Service() {
     private val binder = TrainingBinder()
-    private lateinit var currentExercise: Exercise
-    private lateinit var training: Training
     private var listener: TrainingUpdateListener? = null
 
     private var timer: CountDownTimer? = null
-//    private val job = Job()
-//    private val scope = CoroutineScope(Dispatchers.Default + job)
-
+    private var remainingTime: Long = 0
 
     override fun onBind(p0: Intent?): IBinder? = binder
 
@@ -31,39 +26,41 @@ class TrainingService() : Service() {
         listener = trainingUpdateListener
     }
 
-    fun startTraining(training: Training) {
-        this.training = training
-        nextExercise()
+    fun startTraining() {
+        listener?.nextExercise()
     }
 
-    private  fun nextExercise() {
-//        if (scope.isActive) {
-//            scope.cancel()
-//            timer?.cancel()
-//        }
-        if (training.exercises.isNotEmpty()) {
-            timer?.cancel()
-            currentExercise = training.exercises[0]
-            training.exercises.removeAt(0)
-            listener?.nextExercise(currentExercise, training.exercises)
-            when (currentExercise) {
-                is Exercise.Timer -> {
-                    startTimer(currentExercise.amount * 1000)
-                }
-            }
-        } else {
+    fun pauseTraining() {
+        timer?.cancel()
+    }
 
+    fun resumeTraining() {
+        startTimer(remainingTime.toInt())
+    }
+
+    fun nextExercise(exercise: Exercise) {
+        timer?.cancel()
+        when (exercise) {
+            is Exercise.Timer -> {
+                startTimer(exercise.amount * 1000)
+            }
         }
     }
 
-    private fun startTimer(remainingTime: Int) {
-        timer = object : CountDownTimer(remainingTime.toLong(), 1000) {
+    fun stopTraining() {
+        timer?.cancel()
+        remainingTime = 0
+    }
+
+    private fun startTimer(time: Int) {
+        timer = object : CountDownTimer(time.toLong(), 1000) {
             override fun onFinish() {
-                nextExercise()
+                listener?.nextExercise()
             }
 
             override fun onTick(timeUntilFinished: Long) {
-                listener?.updateTimer((timeUntilFinished /1000).toInt())
+                remainingTime = timeUntilFinished
+                listener?.updateTimer((timeUntilFinished / 1000).toInt())
             }
         }
         timer?.start()
