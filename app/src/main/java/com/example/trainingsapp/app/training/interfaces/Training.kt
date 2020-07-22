@@ -10,7 +10,7 @@ class Training(val name: String?) {
     }
 
     fun getExercise(index: Int): Exercise? {
-        if (exercises.lastIndex <= index) {
+        if (exercises.lastIndex >= index) {
             return exercises[index]
         }
         return null

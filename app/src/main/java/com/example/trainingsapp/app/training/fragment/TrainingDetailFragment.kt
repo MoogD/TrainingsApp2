@@ -54,8 +54,4 @@ class TrainingDetailFragment(private val training: Training) : Fragment() {
         Timber.d("$view pressed")
         listener?.backPressed()
     }
-
-    companion object {
-        fun newInstance(training: Training) = TrainingDetailFragment(training)
-    }
 }

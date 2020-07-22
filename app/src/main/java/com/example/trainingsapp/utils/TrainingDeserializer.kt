@@ -39,7 +39,6 @@ object TrainingDeserializer : JsonDeserializer<Training> {
             } catch (e: UnknownExerciseTypeException) {
                 Timber.w(e)
             }
-
         }
         return training
     }

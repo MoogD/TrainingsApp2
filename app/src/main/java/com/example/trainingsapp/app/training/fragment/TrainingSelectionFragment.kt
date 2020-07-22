@@ -17,8 +17,7 @@ import timber.log.Timber
 
 class TrainingSelectionFragment(
     private val trainingList: List<Training>
-) : Fragment(),
-    TrainingItemClickListener {
+) : Fragment(), TrainingItemClickListener {
 
     private var listener: TrainingListener? = null
     private var trainingListAdapter = TrainingListAdapter()
@@ -50,11 +49,5 @@ class TrainingSelectionFragment(
     override fun onItemClicked(training: Training) {
         Timber.d("Training ${training.name} selected")
         listener?.showTraining(training)
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(trainingList: List<Training>) =
-            TrainingSelectionFragment(trainingList)
     }
 }
