@@ -1,5 +1,7 @@
 package com.example.trainingsapp.app.timer
 
+import com.example.trainingsapp.app.training.interfaces.Exercise
+
 interface TimerContract {
     interface View {
         fun onTimerCreated()
@@ -10,6 +12,7 @@ interface TimerContract {
         fun attachView(view: View)
         fun detachView()
         fun createConstantTimerPattern(
+            name: String,
             count: Int,
             stepMinutes: Int,
             stepSeconds: Int,
@@ -17,7 +20,7 @@ interface TimerContract {
             breakSeconds: Int
         )
 
-        fun createIndividualTimerPattern(steps: List<TimerPattern.Timer>)
+        fun createIndividualTimerPattern(name: String, steps: List<Exercise.Timer>)
         fun updateIndividualTimer(minutes: Int, seconds: Int): Int
     }
 }

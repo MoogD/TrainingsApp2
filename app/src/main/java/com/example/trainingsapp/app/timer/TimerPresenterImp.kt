@@ -1,5 +1,7 @@
 package com.example.trainingsapp.app.timer
 
+import com.example.trainingsapp.app.training.interfaces.Exercise
+import com.example.trainingsapp.app.training.interfaces.Training
 import com.example.trainingsapp.utils.PreferenceHelper
 import javax.inject.Inject
 
@@ -17,39 +19,47 @@ class TimerPresenterImp @Inject constructor(
     }
 
     override fun createConstantTimerPattern(
+        name: String,
         count: Int,
         stepMinutes: Int,
         stepSeconds: Int,
         breakMinutes: Int,
         breakSeconds: Int
     ) {
-        val timerPattern = TimerPattern()
+        val timerPattern =
+            Training(name)
         if ((stepMinutes > 0 || stepSeconds > 0) && count > 0) {
             for (i in 0 until count) {
-                timerPattern.addTimer(
-                    TimerPattern.Timer(stepMinutes * 60 + stepSeconds)
+                timerPattern.addExercise(
+                    Exercise.Timer(
+                        stepMinutes * 60 + stepSeconds
+                    )
                 )
                 if ((breakMinutes > 0 || breakSeconds > 0) && i < count - 1) {
-                    timerPattern.addTimer(
-                        TimerPattern.Timer(breakMinutes * 60 + breakSeconds)
+                    timerPattern.addExercise(
+                        Exercise.Timer(
+                            breakMinutes * 60 + breakSeconds
+                        )
                     )
                 }
             }
-            preferenceHelper.saveTimerPattern(timerPattern)
+            preferenceHelper.saveTraining(timerPattern)
         }
         view?.onTimerCreated()
     }
 
-    override fun createIndividualTimerPattern(steps: List<TimerPattern.Timer>) {
-        val pattern = TimerPattern().apply {
+    override fun createIndividualTimerPattern(name: String, steps: List<Exercise.Timer>) {
+        val pattern = Training(
+            name
+        ).apply {
             steps.forEach {
-                if (it.duration > 0) {
-                    this.addTimer(it)
+                if (it.amount > 0) {
+                    this.addExercise(it)
                 }
             }
         }
         if (!pattern.isEmpty()) {
-            preferenceHelper.saveTimerPattern(pattern)
+            preferenceHelper.saveTraining(pattern)
         }
         view?.onTimerCreated()
     }

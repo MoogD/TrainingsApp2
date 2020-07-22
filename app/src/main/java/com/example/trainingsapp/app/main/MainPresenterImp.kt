@@ -10,4 +10,8 @@ class MainPresenterImp : MainContract.Presenter {
     override fun detachView() {
         view = null
     }
+
+    override fun onTrainingPressed() {
+        view?.startTrainingActivity()
+    }
 }

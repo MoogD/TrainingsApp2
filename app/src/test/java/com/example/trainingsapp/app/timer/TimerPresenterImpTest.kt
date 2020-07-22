@@ -1,5 +1,7 @@
 package com.example.trainingsapp.app.timer
 
+import com.example.trainingsapp.app.training.interfaces.Exercise
+import com.example.trainingsapp.app.training.interfaces.Training
 import com.example.trainingsapp.utils.PreferenceHelper
 import com.nhaarman.mockitokotlin2.any
 import org.junit.Test
@@ -27,6 +29,7 @@ class TimerPresenterImpTest {
     fun `test createConstantTimerPattern for zero minutes and second`() {
         presenter
             .createConstantTimerPattern(
+                "Training",
                 constantPatternOneCount,
                 0,
                 0,
@@ -34,13 +37,14 @@ class TimerPresenterImpTest {
                 0
             )
         verify(preferenceHelper, times(0))
-            .saveTimerPattern(any())
+            .saveTraining(any())
     }
 
     @Test
     fun `test createConstantTimerPattern for count is zero`() {
         presenter
             .createConstantTimerPattern(
+                "Training",
                 0,
                 0,
                 constantPatternOneStepSeconds,
@@ -48,7 +52,7 @@ class TimerPresenterImpTest {
                 0
             )
         verify(preferenceHelper, times(0))
-            .saveTimerPattern(any())
+            .saveTraining(any())
     }
 
     @Test
@@ -56,6 +60,7 @@ class TimerPresenterImpTest {
         val pattern = provideConstantPatternWithoutBreaksWithMinutesAndSeconds()
         presenter
             .createConstantTimerPattern(
+                "Training",
                 constantPatternOneCount,
                 constantPatternOneStepMinutes,
                 constantPatternOneStepSeconds,
@@ -63,7 +68,7 @@ class TimerPresenterImpTest {
                 0
             )
         verify(preferenceHelper, times(1))
-            .saveTimerPattern(pattern)
+            .saveTraining(pattern)
     }
 
     @Test
@@ -71,6 +76,7 @@ class TimerPresenterImpTest {
         val pattern = provideConstantPatternWithoutBreaksWithMinutesOnly()
         presenter
             .createConstantTimerPattern(
+                "Training",
                 constantPatternOneCount,
                 constantPatternOneStepMinutes,
                 0,
@@ -78,7 +84,7 @@ class TimerPresenterImpTest {
                 0
             )
         verify(preferenceHelper, times(1))
-            .saveTimerPattern(pattern)
+            .saveTraining(pattern)
     }
 
     @Test
@@ -86,6 +92,7 @@ class TimerPresenterImpTest {
         val pattern = provideConstantPatternWithoutBreaksWithSecondsOnly()
         presenter
             .createConstantTimerPattern(
+                "Training",
                 constantPatternOneCount,
                 0,
                 constantPatternOneStepSeconds,
@@ -93,7 +100,7 @@ class TimerPresenterImpTest {
                 0
             )
         verify(preferenceHelper, times(1))
-            .saveTimerPattern(pattern)
+            .saveTraining(pattern)
     }
 
     @Test
@@ -101,6 +108,7 @@ class TimerPresenterImpTest {
         val pattern = provideConstantPatternWithoutZeroValues()
         presenter
             .createConstantTimerPattern(
+                "Training",
                 constantPatternOneCount,
                 constantPatternOneStepMinutes,
                 constantPatternOneStepSeconds,
@@ -108,7 +116,7 @@ class TimerPresenterImpTest {
                 constantPatternOneBreakSeconds
             )
         verify(preferenceHelper, times(1))
-            .saveTimerPattern(pattern)
+            .saveTraining(pattern)
     }
 
     @Test
@@ -116,6 +124,7 @@ class TimerPresenterImpTest {
         val pattern = provideConstantPatternWithoutBreakMinutes()
         presenter
             .createConstantTimerPattern(
+                "Training",
                 constantPatternOneCount,
                 constantPatternOneStepMinutes,
                 constantPatternOneStepSeconds,
@@ -123,7 +132,7 @@ class TimerPresenterImpTest {
                 constantPatternOneBreakSeconds
             )
         verify(preferenceHelper, times(1))
-            .saveTimerPattern(pattern)
+            .saveTraining(pattern)
     }
 
     @Test
@@ -131,6 +140,7 @@ class TimerPresenterImpTest {
         val pattern = provideConstantPatternWithoutBreakSeconds()
         presenter
             .createConstantTimerPattern(
+                "Training",
                 constantPatternOneCount,
                 constantPatternOneStepMinutes,
                 constantPatternOneStepSeconds,
@@ -138,57 +148,72 @@ class TimerPresenterImpTest {
                 0
             )
         verify(preferenceHelper, times(1))
-            .saveTimerPattern(pattern)
+            .saveTraining(pattern)
     }
 
     @Test
     fun `test createIndividualTimerPattern for empty list`() {
-        presenter.createIndividualTimerPattern(emptyList())
+        presenter.createIndividualTimerPattern("Training", emptyList())
         verify(preferenceHelper, times(0))
-            .saveTimerPattern(any())
+            .saveTraining(any())
     }
 
     @Test
     fun `test createIndividualTimerPattern for list with only empty Timer`() {
         presenter.createIndividualTimerPattern(
+            "Training",
             listOf(
-                TimerPattern.Timer(0),
-                TimerPattern.Timer(0),
-                TimerPattern.Timer(0),
-                TimerPattern.Timer(0)
+                Exercise.Timer(0),
+                Exercise.Timer(0),
+                Exercise.Timer(0),
+                Exercise.Timer(0)
             )
         )
         verify(preferenceHelper, times(0))
-            .saveTimerPattern(any())
+            .saveTraining(any())
     }
 
     @Test
     fun `test createIndividualTimerPattern for single element list`() {
         val pattern = provideIndivdualTimerPatternWithOneStep()
-        presenter.createIndividualTimerPattern(listOf(TimerPattern.Timer(individualTimerDurationOne)))
+        presenter.createIndividualTimerPattern(
+            "Training",
+            listOf(
+                Exercise.Timer(
+                    individualTimerDurationOne
+                )
+            )
+        )
         verify(preferenceHelper, times(1))
-            .saveTimerPattern(pattern)
+            .saveTraining(pattern)
     }
 
     @Test
     fun `test createIndividualTimerPattern for multiple element list`() {
         val pattern = provideIndivdualTimerPatternWitMultipleSteps()
         presenter.createIndividualTimerPattern(
+            "Training",
             listOf(
-                TimerPattern.Timer(individualTimerDurationOne),
-                TimerPattern.Timer(individualTimerDurationTwo),
-                TimerPattern.Timer(individualTimerDurationThree)
+                Exercise.Timer(
+                    individualTimerDurationOne
+                ),
+                Exercise.Timer(
+                    individualTimerDurationTwo
+                ),
+                Exercise.Timer(
+                    individualTimerDurationThree
+                )
             )
         )
         verify(preferenceHelper, times(1))
-            .saveTimerPattern(pattern)
+            .saveTraining(pattern)
     }
 
-    private fun provideConstantPatternWithoutBreaksWithMinutesAndSeconds(): TimerPattern {
-        val pattern = TimerPattern()
+    private fun provideConstantPatternWithoutBreaksWithMinutesAndSeconds(): Training {
+        val pattern = Training("Training")
         for (i in 0 until constantPatternOneCount) {
-            pattern.addTimer(
-                TimerPattern.Timer(
+            pattern.addExercise(
+                Exercise.Timer(
                     constantPatternOneStepMinutes * 60 + constantPatternOneStepSeconds
                 )
             )
@@ -196,33 +221,41 @@ class TimerPresenterImpTest {
         return pattern
     }
 
-    private fun provideConstantPatternWithoutBreaksWithSecondsOnly(): TimerPattern {
-        val pattern = TimerPattern()
+    private fun provideConstantPatternWithoutBreaksWithSecondsOnly(): Training {
+        val pattern = Training("Training")
         for (i in 0 until constantPatternOneCount) {
-            pattern.addTimer(TimerPattern.Timer(constantPatternOneStepSeconds))
+            pattern.addExercise(
+                Exercise.Timer(
+                    constantPatternOneStepSeconds
+                )
+            )
         }
         return pattern
     }
 
-    private fun provideConstantPatternWithoutBreaksWithMinutesOnly(): TimerPattern {
-        val pattern = TimerPattern()
+    private fun provideConstantPatternWithoutBreaksWithMinutesOnly(): Training {
+        val pattern = Training("Training")
         for (i in 0 until constantPatternOneCount) {
-            pattern.addTimer(TimerPattern.Timer(constantPatternOneStepMinutes * 60))
+            pattern.addExercise(
+                Exercise.Timer(
+                    constantPatternOneStepMinutes * 60
+                )
+            )
         }
         return pattern
     }
 
-    private fun provideConstantPatternWithoutZeroValues(): TimerPattern {
-        val pattern = TimerPattern()
+    private fun provideConstantPatternWithoutZeroValues(): Training {
+        val pattern = Training("Training")
         for (i in 0 until constantPatternOneCount) {
-            pattern.addTimer(
-                TimerPattern.Timer(
+            pattern.addExercise(
+                Exercise.Timer(
                     constantPatternOneStepMinutes * 60 + constantPatternOneStepSeconds
                 )
             )
             if (i < constantPatternOneCount - 1) {
-                pattern.addTimer(
-                    TimerPattern.Timer(
+                pattern.addExercise(
+                    Exercise.Timer(
                         constantPatternOneBreakMinutes * 60 +
                                 constantPatternOneBreakSeconds
                     )
@@ -232,17 +265,17 @@ class TimerPresenterImpTest {
         return pattern
     }
 
-    private fun provideConstantPatternWithoutBreakSeconds(): TimerPattern {
-        val pattern = TimerPattern()
+    private fun provideConstantPatternWithoutBreakSeconds(): Training {
+        val pattern = Training("Training")
         for (i in 0 until constantPatternOneCount) {
-            pattern.addTimer(
-                TimerPattern.Timer(
+            pattern.addExercise(
+                Exercise.Timer(
                     constantPatternOneStepMinutes * 60 + constantPatternOneStepSeconds
                 )
             )
             if (i < constantPatternOneCount - 1) {
-                pattern.addTimer(
-                    TimerPattern.Timer(
+                pattern.addExercise(
+                    Exercise.Timer(
                         constantPatternOneBreakMinutes * 60
                     )
                 )
@@ -251,30 +284,50 @@ class TimerPresenterImpTest {
         return pattern
     }
 
-    private fun provideConstantPatternWithoutBreakMinutes(): TimerPattern {
-        val pattern = TimerPattern()
+    private fun provideConstantPatternWithoutBreakMinutes(): Training {
+        val pattern = Training("Training")
         for (i in 0 until constantPatternOneCount) {
-            pattern.addTimer(
-                TimerPattern.Timer(
+            pattern.addExercise(
+                Exercise.Timer(
                     constantPatternOneStepMinutes * 60 + constantPatternOneStepSeconds
                 )
             )
             if (i < constantPatternOneCount - 1) {
-                pattern.addTimer(
-                    TimerPattern.Timer(constantPatternOneBreakSeconds)
+                pattern.addExercise(
+                    Exercise.Timer(
+                        constantPatternOneBreakSeconds
+                    )
                 )
             }
         }
         return pattern
     }
 
-    private fun provideIndivdualTimerPatternWithOneStep(): TimerPattern =
-        TimerPattern().apply { this.addTimer(TimerPattern.Timer(individualTimerDurationOne)) }
+    private fun provideIndivdualTimerPatternWithOneStep(): Training =
+        Training("Training").apply {
+            this.addExercise(
+                Exercise.Timer(
+                    individualTimerDurationOne
+                )
+            )
+        }
 
-    private fun provideIndivdualTimerPatternWitMultipleSteps(): TimerPattern =
-        TimerPattern().apply {
-            this.addTimer(TimerPattern.Timer(individualTimerDurationOne))
-            this.addTimer(TimerPattern.Timer(individualTimerDurationTwo))
-            this.addTimer(TimerPattern.Timer(individualTimerDurationThree))
+    private fun provideIndivdualTimerPatternWitMultipleSteps(): Training =
+        Training("Training").apply {
+            this.addExercise(
+                Exercise.Timer(
+                    individualTimerDurationOne
+                )
+            )
+            this.addExercise(
+                Exercise.Timer(
+                    individualTimerDurationTwo
+                )
+            )
+            this.addExercise(
+                Exercise.Timer(
+                    individualTimerDurationThree
+                )
+            )
         }
 }
